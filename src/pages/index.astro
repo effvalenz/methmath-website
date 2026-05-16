@@ -1,11 +1,89 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Base from "../layouts/Base.astro";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<Base title="Home">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <p class="section-label">Est. 2016 — Hermosillo, Sonora, México</p>
+      <h1>We make noise<br />you won't forget.</h1>
+      <div class="cta-row">
+        <a href="/music" class="btn-primary">Listen now</a>
+        <a href="/feed" class="btn-secondary">Fan feed</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container about-grid">
+      <div>
+        <p class="section-label">About</p>
+        <h2 class="section-title">Three people,<br />one loud idea.</h2>
+        <p class="body-text">
+          Placeholder bio — tell your story here. Where you're from, how you
+          met, what drives the music. Keep it real, keep it short.
+        </p>
+      </div>
+      <div class="about-img-placeholder">
+        <span>Band photo</span>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding: 120px 0 100px;
+    border-bottom: 1px solid var(--border);
+  }
+  h1 {
+    font-size: clamp(42px, 8vw, 88px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 40px;
+  }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    padding: 12px 28px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 14px;
+    transition: opacity .15s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-secondary {
+    border: 1px solid var(--border);
+    padding: 12px 28px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    color: var(--muted);
+    transition: color .15s, border-color .15s;
+  }
+  .btn-secondary:hover { color: var(--text); border-color: #444; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .body-text { color: var(--muted); font-size: 16px; line-height: 1.7; }
+  .about-img-placeholder {
+    aspect-ratio: 4/3;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+</style>

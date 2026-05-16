@@ -1,0 +1,64 @@
+---
+const workerUrl = import.meta.env.PUBLIC_WORKER_URL;
+---
+
+<div class="feed-section">
+  <h2 class="feed-title">From the crowd</h2>
+  <div id="feed-grid" class="feed-grid">
+    <p class="loading">Loading...</p>
+  </div>
+</div>
+
+<script define:vars={{ workerUrl }}>
+  async function loadFeed() {
+    const grid = document.getElementById("feed-grid");
+    try {
+      const res = await fetch(`${workerUrl}/feed`);
+      const { posts } = await res.json();
+
+      if (!posts || posts.length === 0) {
+        grid.innerHTML = '<p class="empty">No posts yet — be the first to share!</p>';
+        return;
+      }
+
+      grid.innerHTML = posts.map(post => {
+        const isVideo = post.mime_type.startsWith("video/");
+        const media = isVideo
+          ? `<video src="${post.url}" controls playsinline muted class="media"></video>`
+          : `<img src="${post.url}" alt="Photo by ${post.uploader_name}" class="media" loading="lazy" />`;
+        return `
+          <div class="feed-card">
+            ${media}
+            <div class="card-info">
+              <span class="card-name">${post.uploader_name}</span>
+              ${post.caption ? `<span class="card-caption">${post.caption}</span>` : ""}
+            </div>
+          </div>`;
+      }).join("");
+    } catch {
+      grid.innerHTML = '<p class="empty">Could not load the feed right now.</p>';
+    }
+  }
+
+  loadFeed();
+</script>
+
+<style>
+  .feed-title { font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+  .feed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .feed-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .media { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .card-info { padding: 12px 14px; }
+  .card-name { display: block; font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .card-caption { display: block; font-size: 12px; color: var(--muted); }
+  .loading, .empty { color: var(--muted); font-size: 14px; }
+</style>

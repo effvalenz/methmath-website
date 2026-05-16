@@ -1,0 +1,106 @@
+---
+const workerUrl = import.meta.env.PUBLIC_WORKER_URL;
+---
+
+<div class="upload-section">
+  <h2 class="form-title">Share your shots</h2>
+  <form id="upload-form">
+    <div class="field">
+      <label for="uploader_name">Your name</label>
+      <input type="text" id="uploader_name" name="uploader_name" placeholder="Jane" required />
+    </div>
+    <div class="field">
+      <label for="caption">Caption <span class="optional">(optional)</span></label>
+      <input type="text" id="caption" name="caption" placeholder="Opening night at Venue, June 2025" />
+    </div>
+    <div class="field">
+      <label for="file">Photo or video <span class="optional">(max 50MB)</span></label>
+      <input type="file" id="file" name="file" accept="image/*,video/*" required />
+    </div>
+    <button type="submit" id="submit-btn">Upload</button>
+    <p id="form-status" aria-live="polite"></p>
+  </form>
+</div>
+
+<script define:vars={{ workerUrl }}>
+  const form = document.getElementById("upload-form");
+  const status = document.getElementById("form-status");
+  const btn = document.getElementById("submit-btn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const file = form.file.files[0];
+    if (file && file.size > 50 * 1024 * 1024) {
+      status.textContent = "File is too large. Please keep it under 50MB.";
+      status.className = "error";
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Uploading...";
+    status.textContent = "";
+
+    try {
+      const data = new FormData(form);
+      const res = await fetch(`${workerUrl}/upload`, { method: "POST", body: data });
+      const json = await res.json();
+
+      if (json.success) {
+        status.textContent = "Thanks! Your submission is pending review.";
+        status.className = "success";
+        form.reset();
+      } else {
+        status.textContent = json.error ?? "Something went wrong. Please try again.";
+        status.className = "error";
+      }
+    } catch {
+      status.textContent = "Upload failed. Check your connection and try again.";
+      status.className = "error";
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Upload";
+    }
+  });
+</script>
+
+<style>
+  .upload-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 56px;
+    max-width: 520px;
+  }
+  .form-title { font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  label { font-size: 13px; color: var(--muted); }
+  .optional { color: #555; }
+  input[type="text"], input[type="file"] {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color .15s;
+  }
+  input:focus { outline: none; border-color: #444; }
+  button[type="submit"] {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 11px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity .15s;
+  }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  #form-status { margin-top: 12px; font-size: 13px; }
+  #form-status.success { color: #4ade80; }
+  #form-status.error { color: #f87171; }
+</style>

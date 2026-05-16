@@ -1,0 +1,44 @@
+---
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/music", label: "Music" },
+  { href: "/feed", label: "Fan feed" },
+];
+const current = Astro.url.pathname;
+---
+
+<header>
+  <nav class="container">
+    <a href="/" class="logo">Meth Math</a>
+    <ul>
+      {links.map(l => (
+        <li>
+          <a href={l.href} class={current === l.href ? "active" : ""}>
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .logo { font-weight: 600; font-size: 17px; letter-spacing: -0.02em; }
+  ul { display: flex; gap: 32px; list-style: none; }
+  a { font-size: 14px; color: var(--muted); transition: color .15s; }
+  a:hover, a.active { color: var(--text); }
+</style>

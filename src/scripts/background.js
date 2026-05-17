@@ -248,14 +248,14 @@ const sphereMaterial = new THREE.ShaderMaterial({
       float n2 = snoise3(vPos * 2.8 + t * 0.05) * 0.5 + 0.5;
       float n3 = snoise3(vPos * 6.0 + t * 0.03) * 0.5 + 0.5;
 
-      // two-tone split like shadertoy: purple inner / green outer
-      vec3 innerCol = vec3(0.18, 0.06, 0.22); // deep purple
-      vec3 outerCol = vec3(0.04, 0.16, 0.08); // dark green
+      // two-tone — dark gray inner, slightly lighter outer
+      vec3 innerCol = vec3(0.06, 0.06, 0.07);
+      vec3 outerCol = vec3(0.14, 0.14, 0.15);
       vec3 base = mix(innerCol, outerCol, n1 * 0.6 + fresnel * 0.4);
 
       // surface detail — veiny/fleshy variation
       float vein = n2 * n3;
-      base += vein * vec3(0.08, 0.04, 0.10) * ifresnel;
+      base += vein * vec3(0.07, 0.07, 0.08) * ifresnel;
 
       // metallic sheen — light from top right
       vec3 lightDir = normalize(vec3(0.6, 0.9, 1.0));
@@ -263,23 +263,23 @@ const sphereMaterial = new THREE.ShaderMaterial({
       float spec = pow(max(dot(reflect(-lightDir, n), viewDir), 0.0), 48.0);
 
       base += diff * vec3(0.06, 0.05, 0.08) * 0.6;
-      base += spec * vec3(0.35, 0.30, 0.40); // purplish specular highlight
+      base += spec * vec3(0.32, 0.32, 0.34);
 
       // second light — cooler, from left
       vec3 lightDir2 = normalize(vec3(-0.8, 0.2, 0.6));
       float spec2 = pow(max(dot(reflect(-lightDir2, n), viewDir), 0.0), 24.0);
-      base += spec2 * vec3(0.10, 0.20, 0.12) * 0.5; // greenish secondary spec
+      base += spec2 * vec3(0.12, 0.12, 0.13) * 0.5;
 
       // rim glow
-      base += fresnel * vec3(0.22, 0.10, 0.30) * 0.9; // purple rim
+      base += fresnel * vec3(0.28, 0.28, 0.30) * 0.9;
 
       // displacement-based color — brighter where surface bulges
-      base += clamp(vDisplace, 0.0, 1.0) * vec3(0.12, 0.05, 0.15);
+      base += clamp(vDisplace, 0.0, 1.0) * vec3(0.10, 0.10, 0.11);
 
       // mouse-driven light shift
       vec3 mouseLight = normalize(vec3((mouse.x - 0.5) * 3.0, (mouse.y - 0.5) * 3.0, 1.5));
       float mSpec = pow(max(dot(reflect(-mouseLight, n), viewDir), 0.0), 36.0);
-      base += mSpec * vec3(0.20, 0.15, 0.25) * 0.6;
+      base += mSpec * vec3(0.22, 0.22, 0.24) * 0.6;
 
       float alpha = mix(0.97, 0.0, pow(fresnel, 3.5));
       gl_FragColor = vec4(base, alpha);

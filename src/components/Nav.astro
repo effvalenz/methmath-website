@@ -4,7 +4,7 @@ import mathGif from "../assets/math.gif";
 const links = [
   { href: "/", label: "Home" },
   { href: "/music", label: "Music" },
-  { href: "/feed", label: "Fan feed" },
+  { href: "/feed", label: "Feed" },
 ];
 const current = Astro.url.pathname;
 ---
@@ -42,8 +42,9 @@ const current = Astro.url.pathname;
     justify-content: space-between;
     height: 60px;
   }
-  .logo { display: flex; align-items: center; gap: 4px; }
-  .logo img { height: 40px; width: auto; display: block; }
+  .logo { display: flex; align-items: center; gap: 0; }
+  .logo img { height: 100px; width: auto; display: block; }
+  .logo img:last-child { margin-left: -90px; }
   ul { display: flex; gap: 32px; list-style: none; }
   a { font-size: 14px; color: var(--muted); transition: color .15s; }
   a:hover, a.active { color: var(--text); }

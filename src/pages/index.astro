@@ -1,5 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
+import { Image } from "astro:assets";
+import bandPhoto from "../assets/methmath.png";
 ---
 
 <Base title="Home">
@@ -7,7 +9,7 @@ import Base from "../layouts/Base.astro";
   <section class="hero">
     <div class="container">
       <p class="section-label">Est. 2016 — Hermosillo, Sonora, México</p>
-      <h1>We make noise<br />you won't forget.</h1>
+      <h1>Hola<br />amigas.</h1>
       <div class="cta-row">
         <a href="/music" class="btn-primary">Listen now</a>
         <a href="/feed" class="btn-secondary">Fan feed</a>
@@ -20,15 +22,15 @@ import Base from "../layouts/Base.astro";
     <div class="container about-grid">
       <div>
         <p class="section-label">About</p>
-        <h2 class="section-title">Three people,<br />one loud idea.</h2>
+        <h2 class="section-title">Fino<br />Cochino</h2>
         <p class="body-text">
-          Placeholder bio — tell your story here. Where you're from, how you
-          met, what drives the music. Keep it real, keep it short.
+          Meth Math son la vocalista Angélica Ballesteros (DJ Dulces Sueños) y los productores
+          (también profesores de matemáticas y computación) error.error (Efrén Valenzuela) y Bonsai
+          Babies (Ernesto Robles). El proyecto comenzó en 2016 y han publicado dos EP’s: Pompi
+          (2020) y M♡rtal (2022).
         </p>
       </div>
-      <div class="about-img-placeholder">
-        <span>Band photo</span>
-      </div>
+      <Image src={bandPhoto} alt="Meth Math band photo" class="about-img" />
     </div>
   </section>
 </Base>
@@ -72,16 +74,11 @@ import Base from "../layouts/Base.astro";
     align-items: center;
   }
   .body-text { color: var(--muted); font-size: 16px; line-height: 1.7; }
-  .about-img-placeholder {
-    aspect-ratio: 4/3;
-    background: var(--surface);
-    border: 1px solid var(--border);
+  .about-img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: contain;
     border-radius: var(--radius);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    font-size: 13px;
   }
   @media (max-width: 700px) {
     .about-grid { grid-template-columns: 1fr; }

@@ -1,11 +1,5 @@
 ---
 import Base from "../layouts/Base.astro";
-
-const releases = [
-  { title: "Album Title", year: "2024", type: "LP", link: "#" },
-  { title: "EP Title", year: "2023", type: "EP", link: "#" },
-  { title: "Single Title", year: "2022", type: "Single", link: "#" },
-];
 ---
 
 <Base title="Music">
@@ -14,40 +8,14 @@ const releases = [
       <p class="section-label">Discography</p>
       <h1 class="section-title">Music</h1>
       <div class="releases">
-        {releases.map(r => (
-          <a href={r.link} class="release-card">
-            <div class="cover-placeholder"><span>{r.type}</span></div>
-            <div class="release-info">
-              <span class="release-title">{r.title}</span>
-              <span class="release-meta">{r.type} · {r.year}</span>
-            </div>
-          </a>
-        ))}
+        <iframe data-testid="embed-iframe" style="border-radius:12px;border:0" src="https://open.spotify.com/embed/album/7qOzDSLLeR5imM68K69hTw?utm_source=generator&theme=0" width="100%" height="152" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <iframe data-testid="embed-iframe" style="border-radius:12px;border:0" src="https://open.spotify.com/embed/album/0evBuyhqf12uiAa4tG0lZJ?utm_source=generator&theme=0" width="100%" height="152" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <iframe data-testid="embed-iframe" style="border-radius:12px;border:0" src="https://open.spotify.com/embed/album/2lvzoRYpLcIkXSa1wc9Erm?utm_source=generator&theme=0" width="100%" height="152" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .releases { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-  .release-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: border-color .15s;
-  }
-  .release-card:hover { border-color: #444; }
-  .cover-placeholder {
-    aspect-ratio: 1;
-    background: #1a1a1a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    font-size: 12px;
-  }
-  .release-info { padding: 14px 16px; }
-  .release-title { display: block; font-size: 15px; font-weight: 500; margin-bottom: 4px; }
-  .release-meta { font-size: 12px; color: var(--muted); }
+  .releases { display: flex; flex-direction: column; gap: 12px; }
 </style>

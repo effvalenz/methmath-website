@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import { Image } from "astro:assets";
+//import { Image } from "astro:assets";
 import bandPhoto from "../assets/methmath.png";
 ---
 
@@ -30,7 +30,7 @@ import bandPhoto from "../assets/methmath.png";
           (2020) y M♡rtal (2022).
         </p>
       </div>
-      <Image src={bandPhoto} alt="Meth Math band photo" class="about-img" />
+      <img src={bandPhoto.src} alt="Meth Math band photo" class="about-img" />
     </div>
   </section>
 </Base>

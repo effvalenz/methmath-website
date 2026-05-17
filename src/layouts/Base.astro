@@ -2,7 +2,12 @@
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 
-const { title = "Meth Math" } = Astro.props;
+const {
+  title = "Home",
+  description = "Official Meth Math site.",
+} = Astro.props;
+
+const siteName = "Meth Math";
 ---
 
 <!DOCTYPE html>
@@ -10,8 +15,22 @@ const { title = "Meth Math" } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Official Meth Math website" />
-    <title>{title} — Meth Math</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={`${title} — ${siteName}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:image" content={`${Astro.url.origin}/og-image.jpg`} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} — ${siteName}`} />
+    <meta name="twitter:description" content={description} />
+
+    <title>{title} — {siteName}</title>
+    <link rel="canonical" href={Astro.url.href} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"

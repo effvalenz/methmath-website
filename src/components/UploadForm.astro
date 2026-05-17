@@ -17,6 +17,8 @@ const workerUrl = import.meta.env.PUBLIC_WORKER_URL;
       <label for="file">Photo or video <span class="optional">(max 50MB)</span></label>
       <input type="file" id="file" name="file" accept="image/*,video/*" required />
     </div>
+    <!-- Honeypot — bots fill this in, humans don't -->
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" style="display:none" />
     <button type="submit" id="submit-btn">Upload</button>
     <p id="form-status" aria-live="polite"></p>
   </form>
@@ -29,6 +31,13 @@ const workerUrl = import.meta.env.PUBLIC_WORKER_URL;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    if (form.website.value !== "") {
+      // Bot filled the honeypot — silently do nothing
+      btn.disabled = false;
+      btn.textContent = "Upload";
+      return;
+    }
 
     const file = form.file.files[0];
     if (file && file.size > 50 * 1024 * 1024) {

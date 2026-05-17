@@ -1,4 +1,6 @@
 ---
+import methGif from "../assets/meth.gif";
+import mathGif from "../assets/math.gif";
 const links = [
   { href: "/", label: "Home" },
   { href: "/music", label: "Music" },
@@ -9,7 +11,10 @@ const current = Astro.url.pathname;
 
 <header>
   <nav class="container">
-    <a href="/" class="logo">Meth Math</a>
+    <a href="/" class="logo">
+      <img src={methGif.src} alt="Meth" />
+      <img src={mathGif.src} alt="Math" />
+    </a>
     <ul>
       {links.map(l => (
         <li>
@@ -37,7 +42,8 @@ const current = Astro.url.pathname;
     justify-content: space-between;
     height: 60px;
   }
-  .logo { font-weight: 600; font-size: 17px; letter-spacing: -0.02em; }
+  .logo { display: flex; align-items: center; gap: 4px; }
+  .logo img { height: 40px; width: auto; display: block; }
   ul { display: flex; gap: 32px; list-style: none; }
   a { font-size: 14px; color: var(--muted); transition: color .15s; }
   a:hover, a.active { color: var(--text); }

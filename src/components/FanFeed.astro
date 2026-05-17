@@ -56,7 +56,19 @@ const workerUrl = import.meta.env.PUBLIC_WORKER_URL;
     border-radius: var(--radius);
     overflow: hidden;
   }
-  .media { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .feed-card img.media {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+  }
+  .feed-card video.media {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: contain;
+    background: #000;
+    display: block;
+  }
   .card-info { padding: 12px 14px; }
   .card-name { display: block; font-size: 13px; font-weight: 500; margin-bottom: 3px; }
   .card-caption { display: block; font-size: 12px; color: var(--muted); }

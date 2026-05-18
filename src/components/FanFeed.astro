@@ -3,9 +3,9 @@ const workerUrl = import.meta.env.PUBLIC_WORKER_URL;
 ---
 
 <div class="feed-section">
-  <h2 class="feed-title">From the crowd</h2>
+  <h2 class="feed-title">Muro de los recuerdos</h2>
   <div id="feed-grid" class="feed-grid">
-    <p class="loading">Loading...</p>
+    <p class="loading">Cargando...</p>
   </div>
 </div>
 
@@ -17,7 +17,7 @@ const workerUrl = import.meta.env.PUBLIC_WORKER_URL;
       const { posts } = await res.json();
 
       if (!posts || posts.length === 0) {
-        grid.innerHTML = '<p class="empty">No posts yet — be the first to share!</p>';
+        grid.innerHTML = '<p class="empty">Aún no hay publicaciones.</p>';
         return;
       }
 
@@ -36,7 +36,7 @@ const workerUrl = import.meta.env.PUBLIC_WORKER_URL;
           </div>`;
       }).join("");
     } catch {
-      grid.innerHTML = '<p class="empty">Could not load the feed right now.</p>';
+      grid.innerHTML = '<p class="empty">Aún no hay publicaciones.</p>';
     }
   }
 

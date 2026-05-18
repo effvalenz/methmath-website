@@ -3,23 +3,23 @@ const workerUrl = import.meta.env.PUBLIC_WORKER_URL;
 ---
 
 <div class="upload-section">
-  <h2 class="form-title">Share your shots</h2>
+  <h2 class="form-title">Comparte tus recuerdos</h2>
   <form id="upload-form">
     <div class="field">
-      <label for="uploader_name">Your name</label>
-      <input type="text" id="uploader_name" name="uploader_name" placeholder="Jane" required />
+      <label for="uploader_name">Tu nombre</label>
+      <input type="text" id="uploader_name" name="uploader_name" placeholder="Juan Gabriel" required />
     </div>
     <div class="field">
-      <label for="caption">Caption <span class="optional">(optional)</span></label>
-      <input type="text" id="caption" name="caption" placeholder="Opening night at Venue, June 2025" />
+      <label for="caption">Subtítulo <span class="optional">(opcional)</span></label>
+      <input type="text" id="caption" name="caption" placeholder="Primera vez en vivo, 2016" />
     </div>
     <div class="field">
-      <label for="file">Photo or video <span class="optional">(max 50MB)</span></label>
+      <label for="file">Foto o video <span class="optional">(max 50MB)</span></label>
       <input type="file" id="file" name="file" accept="image/*,video/*" required />
     </div>
     <!-- Honeypot — bots fill this in, humans don't -->
     <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" style="display:none" />
-    <button type="submit" id="submit-btn">Upload</button>
+    <button type="submit" id="submit-btn">Cargar</button>
     <p id="form-status" aria-live="polite"></p>
   </form>
 </div>
@@ -35,19 +35,19 @@ const workerUrl = import.meta.env.PUBLIC_WORKER_URL;
     if (form.website.value !== "") {
       // Bot filled the honeypot — silently do nothing
       btn.disabled = false;
-      btn.textContent = "Upload";
+      btn.textContent = "Cargar";
       return;
     }
 
     const file = form.file.files[0];
     if (file && file.size > 50 * 1024 * 1024) {
-      status.textContent = "File is too large. Please keep it under 50MB.";
+      status.textContent = "Archivo demasiado grande. Tamaño máximo 50MB.";
       status.className = "error";
       return;
     }
 
     btn.disabled = true;
-    btn.textContent = "Uploading...";
+    btn.textContent = "Cargando...";
     status.textContent = "";
 
     try {

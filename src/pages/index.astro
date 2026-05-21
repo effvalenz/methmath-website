@@ -1,75 +1,20 @@
 ---
 import Base from "../layouts/Base.astro";
-//import { Image } from "astro:assets";
-import bandPhoto from "../assets/methmath.png";
+import FanFeed from "../components/FanFeed.astro";
+import UploadForm from "../components/UploadForm.astro";
 ---
 
-<Base title="Home">
-
-
-  <!-- About -->
-  <section class="section" id="about">
-    <div class="container about-grid">
-      <div>
-        <h2 class="section-title">No estás aquí,<br />ya te fuiste a dormir.</h2>
-        <p class="body-text">
-          Meth Math son la vocalista Angélica Ballesteros (DJ Dulces Sueños) y los productores
-          (también profesores de matemáticas y computación) error.error (Efrén Valenzuela) y Bonsai
-          Babies (Ernesto Robles).
-        </p>
-      </div>
-      <img src={bandPhoto.src} alt="Meth Math band photo" class="about-img" />
+<Base title="Fan feed">
+  <section class="section">
+    <div class="container">
+      <h1 class="section-title">Recuerdos</h1>
+      <p class="intro">¿Capturaste algún recuerdo en uno de nuestros conciertos? Compártelo aquí. Fotos y videos cortos.</p>
+      <UploadForm />
+      <FanFeed />
     </div>
   </section>
 </Base>
 
 <style>
-  .hero {
-    padding: 120px 0 100px;
-    border-bottom: 1px solid var(--border);
-  }
-  h1 {
-    font-size: clamp(42px, 8vw, 88px);
-    font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-bottom: 40px;
-    color: var(--accent);
-  }
-  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--accent);
-    color: #000;
-    padding: 12px 28px;
-    border-radius: var(--radius);
-    font-weight: 600;
-    font-size: 14px;
-    transition: opacity .15s;
-  }
-  .btn-primary:hover { opacity: 0.85; }
-  .btn-secondary {
-    border: 1px solid var(--border);
-    padding: 12px 28px;
-    border-radius: var(--radius);
-    font-size: 14px;
-    color: var(--muted);
-    transition: color .15s, border-color .15s;
-  }
-  .btn-secondary:hover { color: var(--text); border-color: #444; }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-  .body-text { color: var(--muted); font-size: 16px; line-height: 1.7; }
-  .about-img {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: contain;
-    border-radius: var(--radius);
-  }
-  @media (max-width: 700px) {
-    .about-grid { grid-template-columns: 1fr; }
-  }
+  .intro { color: var(--muted); font-size: 15px; max-width: 560px; margin-bottom: 48px; }
 </style>

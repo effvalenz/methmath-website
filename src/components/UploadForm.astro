@@ -56,15 +56,15 @@ const workerUrl = import.meta.env.PUBLIC_WORKER_URL;
       const json = await res.json();
 
       if (json.success) {
-        status.textContent = "Thanks! Your submission is pending review.";
+        status.textContent = "¡Gracias! Tu recuerdo ha sido enviado y se revisará pronto.";
         status.className = "success";
         form.reset();
       } else {
-        status.textContent = json.error ?? "Something went wrong. Please try again.";
+        status.textContent = json.error ?? "Algo salió mal. Por favor, inténtalo de nuevo.";
         status.className = "error";
       }
     } catch {
-      status.textContent = "Upload failed. Check your connection and try again.";
+      status.textContent = "Error al cargar. Verifica tu conexión e inténtalo de nuevo.";
       status.className = "error";
     } finally {
       btn.disabled = false;
